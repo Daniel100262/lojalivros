@@ -24,22 +24,21 @@ public class Livro  implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
-	
-	
+
 	public Livro() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	
-	public Livro(Integer id, String titulo, String nomeAutor, String texto) {
+
+	public Livro(Integer id, String titulo, String nomeAutor, String texto, Categoria categoria) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.nomeAutor = nomeAutor;
 		this.texto = texto;
+		this.categoria = categoria;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,7 +47,7 @@ public class Livro  implements Serializable{
 		return result;
 	}
 	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,62 +64,48 @@ public class Livro  implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
 	public Integer getId() {
 		return id;
 	}
-	
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+
 	public String getTitulo() {
 		return titulo;
 	}
-	
-	
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
-	
+
 	public String getNomeAutor() {
 		return nomeAutor;
 	}
-	
-	
+
 	public void setNomeAutor(String nomeAutor) {
 		this.nomeAutor = nomeAutor;
 	}
-	
-	
+
 	public String getTexto() {
 		return texto;
 	}
-	
-	
+
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-
 
 	public Categoria getCategoria() {
 		return categoria;
 	}
 
-
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
 
-
-	public Livro(Categoria categoria) {
-		super();
-		this.categoria = categoria;
-	}
 	
 	
 	
