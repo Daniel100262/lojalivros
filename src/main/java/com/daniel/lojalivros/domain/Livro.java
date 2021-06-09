@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "livro")
 public class Livro  implements Serializable{
 
@@ -21,6 +23,7 @@ public class Livro  implements Serializable{
 	private String nomeAutor;
 	private String texto;
 	
+	@JsonIgnore //Nao puxar categorias no JSON do response do endpoint /categoria/id
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
