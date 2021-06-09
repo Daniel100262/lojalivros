@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.daniel.lojalivros.domain.Categoria;
+import com.daniel.lojalivros.dtos.CategoriaDTO;
 import com.daniel.lojalivros.repositories.CategoriaRepository;
 import com.daniel.lojalivros.service.exceptions.ObjectNotFoundException;
 
@@ -27,6 +28,18 @@ public class CategoriaService {
 	public Categoria criaCategoria(Categoria obj) {
 		obj.setId(null); //Setando como nulo pq é o JPA quem define o ID
 		return repository.save(obj);
+	}
+
+	public Categoria update(Integer id, CategoriaDTO objDTO) {
+		Categoria obj = procuraPeloID(id);
+		obj.setNome(objDTO.getNome());
+		obj.setDescricao(objDTO.getDescricao());
+		return repository.save(obj);
+	}
+
+	public void delete(Integer id) {
+		procuraPeloID(id);
+		repository.deleteById(id);
 	}
 	
 }
