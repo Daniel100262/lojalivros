@@ -23,4 +23,10 @@ public class CategoriaService {
 	public List<Categoria> findAll(){
 		return repository.findAll();
 	}
+	
+	public Categoria criaCategoria(Categoria obj) {
+		obj.setId(null); //Setando como nulo pq é o JPA quem define o ID
+		return repository.save(obj);
+	}
+	
 }
