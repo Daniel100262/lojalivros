@@ -3,6 +3,7 @@ package com.daniel.lojalivros.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.daniel.lojalivros.domain.Categoria;
@@ -39,7 +40,11 @@ public class CategoriaService {
 
 	public void delete(Integer id) {
 		procuraPeloID(id);
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new com.daniel.lojalivros.service.exceptions.DataIntegrityViolationException("Categoria não pode ser deletada pois possui livros associados a ela!");
+		}
 	}
 	
 }
