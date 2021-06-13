@@ -26,4 +26,18 @@ public class LivroService {
 		catService.procuraPeloID(id_cat);
 		return repository.findAllByCategoria(id_cat);
 	}
+
+	public Livro update(Integer id, Livro objLivroJSON) {
+		Livro livro = procuraPeloID(id);
+		atualizaDadosLivro(livro, objLivroJSON);
+		
+		return repository.save(livro);
+	}
+
+	
+	private void atualizaDadosLivro(Livro livro, Livro objLivroJSON) {
+		livro.setTitulo(objLivroJSON.getTitulo());
+		livro.setNomeAutor(objLivroJSON.getNomeAutor());
+		livro.setTexto(objLivroJSON.getTexto());
+	}
 }
