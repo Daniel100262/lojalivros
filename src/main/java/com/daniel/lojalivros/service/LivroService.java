@@ -2,8 +2,11 @@ package com.daniel.lojalivros.service;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+
+import com.daniel.lojalivros.domain.Categoria;
 import com.daniel.lojalivros.domain.Livro;
 import com.daniel.lojalivros.repositories.LivroRepository;
 import com.daniel.lojalivros.service.exceptions.ObjectNotFoundException;
@@ -39,5 +42,17 @@ public class LivroService {
 		livro.setTitulo(objLivroJSON.getTitulo());
 		livro.setNomeAutor(objLivroJSON.getNomeAutor());
 		livro.setTexto(objLivroJSON.getTexto());
+	}
+
+	public Livro criaLivro(Integer id_cat, Livro novoLivroJSON) {
+		novoLivroJSON.setId(null);//nulo pq quem gera o ID é o JPA
+		Categoria cat = catService.procuraPeloID(id_cat);
+		novoLivroJSON.setCategoria(cat);
+		return repository.save(novoLivroJSON);
+	}
+
+	public void apagaLivro(Integer id) {
+		Livro livro = procuraPeloID(id);
+		repository.delete(livro);
 	}
 }
