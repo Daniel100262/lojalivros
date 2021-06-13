@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,9 +22,22 @@ public class Livro  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	
+	@NotEmpty(message = "Titulo obrigatorio!")
+	@Length(min = 3, max = 50, message = "O campo TITULO deve ter entre 3 e 50 caracteres")
 	private String titulo;
+	
+	@NotEmpty(message = "Nome do autor obrigatorio!")
+	@Length(min = 3, max = 35, message = "O campo NOME DO AUTOR deve ter entre 3 e 35 caracteres")
 	private String nomeAutor;
+	
+	@NotEmpty(message = "Texto obrigatorio!")
+	@Length(min = 3, max = 2000000, message = "O campo TEXTO deve ter entre 10 e 2000000 caracteres")
 	private String texto;
+	
+	
+	
 	
 	@JsonIgnore //Nao puxar categorias no JSON do response do endpoint /categoria/id
 	@ManyToOne

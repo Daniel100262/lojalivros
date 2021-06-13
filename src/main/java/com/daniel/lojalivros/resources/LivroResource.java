@@ -3,8 +3,12 @@ package com.daniel.lojalivros.resources;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +25,7 @@ import com.daniel.lojalivros.domain.Livro;
 import com.daniel.lojalivros.dtos.LivroDTO;
 import com.daniel.lojalivros.service.LivroService;
 
+@CrossOrigin("*") //Permitir requisicoes de qualquer origem
 @RestController
 @RequestMapping(value = "/livros")
 public class LivroResource {
@@ -56,7 +61,7 @@ public class LivroResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Livro> criaLivro(@RequestParam(value = "categoria", defaultValue = "0") Integer id_cat, @RequestBody Livro novoLivroJSON){
+	public ResponseEntity<Livro> criaLivro(@RequestParam(value = "categoria", defaultValue = "0") Integer id_cat, @Valid @RequestBody Livro novoLivroJSON){
 		Livro novoLivro = service.criaLivro(id_cat, novoLivroJSON);
 		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/livros/{id}").buildAndExpand(novoLivro.getId()).toUri(); //Monta o URI com /livros/id, por exemplo /livros/2
 		return ResponseEntity.created(uri).build(); //se quiser passar no corpo usar .body();
